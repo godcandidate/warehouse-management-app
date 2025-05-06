@@ -20,9 +20,18 @@ const LandingPage = lazy(() => import('./pages/landing/LandingPage'));
 
 // Lazy-loaded pages for better performance
 const Dashboard = lazy(() => import('./pages/dashboard/Dashboard'));
+
+// Inventory pages
 const InventoryList = lazy(() => import('./pages/inventory/InventoryList'));
+const InventoryForm = lazy(() => import('./pages/inventory/InventoryForm'));
+const InventoryDetail = lazy(() => import('./pages/inventory/InventoryDetail'));
+
+// Procurement and Shipment pages
 const ProcurementDashboard = lazy(() => import('./pages/procurement/ProcurementDashboard'));
+const PurchaseOrderForm = lazy(() => import('./pages/procurement/PurchaseOrderForm'));
+const SupplierForm = lazy(() => import('./pages/procurement/SupplierForm'));
 const ShipmentList = lazy(() => import('./pages/shipments/ShipmentList'));
+const ShipmentForm = lazy(() => import('./pages/shipments/ShipmentForm'));
 const ReportGenerator = lazy(() => import('./pages/reports/ReportGenerator'));
 
 // Create a client for React Query
@@ -88,9 +97,26 @@ function App() {
                     }
                   >
                     <Route path="/dashboard" element={<Dashboard />} />
+                    
+                    {/* Inventory Routes */}
                     <Route path="/inventory" element={<InventoryList />} />
+                    <Route path="/inventory/add" element={<InventoryForm />} />
+                    <Route path="/inventory/edit/:id" element={<InventoryForm />} />
+                    <Route path="/inventory/view/:id" element={<InventoryDetail />} />
+                    
+                    {/* Procurement Routes */}
                     <Route path="/procurement" element={<ProcurementDashboard />} />
+                    <Route path="/procurement/purchase-order/add" element={<PurchaseOrderForm />} />
+                    <Route path="/procurement/purchase-order/edit/:id" element={<PurchaseOrderForm />} />
+                    <Route path="/procurement/supplier/add" element={<SupplierForm />} />
+                    <Route path="/procurement/supplier/edit/:id" element={<SupplierForm />} />
+                    
+                    {/* Shipment Routes */}
                     <Route path="/shipments" element={<ShipmentList />} />
+                    <Route path="/shipments/create" element={<ShipmentForm />} />
+                    <Route path="/shipments/edit/:id" element={<ShipmentForm />} />
+                    <Route path="/shipments/view/:id" element={<ShipmentList />} />
+                    
                     <Route path="/reports" element={<ReportGenerator />} />
                   </Route>
 

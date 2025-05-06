@@ -35,6 +35,9 @@ export const getInventoryItemById = async (id: string): Promise<InventoryItem> =
   return response.data;
 };
 
+// Alias for getInventoryItemById to match the function name used in components
+export const getInventoryItem = getInventoryItemById;
+
 export const createInventoryItem = async (item: Omit<InventoryItem, 'id'>): Promise<InventoryItem> => {
   // Using mock API instead of real API call
   const response = await inventoryApi.createItem(item);

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import {
-  Button,
   TextField,
   Typography,
   Link,
@@ -11,6 +10,7 @@ import {
   useTheme,
   alpha,
 } from '@mui/material';
+import AppButton from '../../components/ui/AppButton';
 import { 
   Visibility, 
   VisibilityOff, 
@@ -201,29 +201,16 @@ const Login: React.FC = () => {
             </Link>
           </div>
 
-          <Button
+          <AppButton
             type="submit"
-            variant="contained"
+            variant="primary"
             fullWidth
+            size="large"
             disabled={isLoading}
             startIcon={isLoading ? <CircularProgress size={20} color="inherit" /> : <LoginIcon />}
-            sx={{ 
-              py: 1.5,
-              borderRadius: 2,
-              background: `linear-gradient(90deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
-              boxShadow: `0 8px 20px ${alpha(theme.palette.primary.main, 0.3)}`,
-              textTransform: 'none',
-              fontSize: '1rem',
-              fontWeight: 600,
-              transition: 'all 0.3s ease',
-              '&:hover': {
-                boxShadow: `0 10px 25px ${alpha(theme.palette.primary.main, 0.4)}`,
-                transform: 'translateY(-2px)',
-              }
-            }}
           >
             {isLoading ? 'Signing in...' : 'Sign In'}
-          </Button>
+          </AppButton>
 
           <div style={{ width: '100%', textAlign: 'center', margin: '16px 0', position: 'relative' }}>
             <div style={{ 

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import {
-  Button,
   TextField,
   Typography,
   Link,
@@ -14,6 +13,7 @@ import {
   Step,
   StepLabel,
 } from '@mui/material';
+import AppButton from '../../components/ui/AppButton';
 import { 
   Visibility, 
   VisibilityOff, 
@@ -475,67 +475,36 @@ const Register: React.FC = () => {
           </div>
 
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '32px', width: '100%' }}>
-            <Button
+            <AppButton
+              variant="light"
               disabled={activeStep === 0}
               onClick={handleBack}
               startIcon={<ArrowBackIcon />}
               sx={{ 
                 visibility: activeStep === 0 ? 'hidden' : 'visible',
-                color: '#333',
-                '&:hover': {
-                  backgroundColor: alpha('#1976d2', 0.05),
-                }
               }}
             >
               Back
-            </Button>
+            </AppButton>
             {activeStep === steps.length - 1 ? (
-              <Button
+              <AppButton
                 type="submit"
-                variant="contained"
+                variant="secondary"
+                size="large"
                 disabled={isLoading}
                 endIcon={isLoading ? <CircularProgress size={20} color="inherit" /> : <HowToRegIcon />}
-                sx={{ 
-                  py: 1.5, 
-                  px: 3,
-                  borderRadius: 2,
-                  background: `linear-gradient(90deg, #7c4dff 0%, #4f0d7c 100%)`,
-                  boxShadow: `0 8px 20px ${alpha('#7c4dff', 0.3)}`,
-                  textTransform: 'none',
-                  fontSize: '1rem',
-                  fontWeight: 600,
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    boxShadow: `0 10px 25px ${alpha('#7c4dff', 0.4)}`,
-                    transform: 'translateY(-2px)',
-                  }
-                }}
               >
                 {isLoading ? 'Creating Account...' : 'Complete Registration'}
-              </Button>
+              </AppButton>
             ) : (
-              <Button
-                variant="contained"
+              <AppButton
+                variant="primary"
+                size="large"
                 onClick={handleNext}
                 endIcon={<ArrowForwardIcon />}
-                sx={{ 
-                  py: 1.5, 
-                  px: 3,
-                  borderRadius: 2,
-                  background: `linear-gradient(90deg, #1976d2 0%, #7c4dff 100%)`,
-                  boxShadow: `0 8px 20px ${alpha('#1976d2', 0.3)}`,
-                  textTransform: 'none',
-                  fontSize: '1rem',
-                  fontWeight: 600,
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    boxShadow: `0 10px 25px ${alpha('#1976d2', 0.4)}`,
-                    transform: 'translateY(-2px)',
-                  }
-                }}
               >
                 Next
-              </Button>
+              </AppButton>
             )}
           </div>
 

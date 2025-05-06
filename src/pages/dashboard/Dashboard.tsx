@@ -2,29 +2,29 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import {
-  Box,
+  Container,
   Grid,
   Paper,
   Typography,
+  Button,
   Card,
   CardContent,
   CardHeader,
-  Divider,
   List,
   ListItem,
+  Divider,
+  Box,
+  useTheme,
   ListItemText,
+  Skeleton,
+  Fade,
   ListItemAvatar,
   Avatar,
-  Button,
-  Skeleton,
-  useTheme,
-  Container,
-  Stack,
-  Fade,
   Chip,
   IconButton,
   Tooltip,
 } from '@mui/material';
+import AppButton from '../../components/ui/AppButton';
 import {
   Inventory as InventoryIcon,
   ShoppingCart as ProcurementIcon,
@@ -148,26 +148,14 @@ const Dashboard: React.FC = () => {
                   <Typography variant="h6" paragraph sx={{ opacity: 0.9, mb: 3 }}>
                     Monitor your inventory, manage shipments, and track procurement in one place.
                   </Typography>
-                  <Button
-                    variant="contained"
-                    color="secondary"
+                  <AppButton
+                    variant="secondary"
                     size="large"
                     endIcon={<ArrowForwardIcon />}
-                    sx={{ 
-                      px: 4, 
-                      py: 1.5,
-                      borderRadius: 2,
-                      boxShadow: 2,
-                      '&:hover': {
-                        boxShadow: 4,
-                        transform: 'translateY(-2px)',
-                      },
-                      transition: 'transform 0.3s ease-in-out'
-                    }}
                     onClick={() => navigate('/inventory')}
                   >
                     Explore Inventory
-                  </Button>
+                  </AppButton>
                 </Box>
               </Fade>
             </Grid>
@@ -237,13 +225,14 @@ const Dashboard: React.FC = () => {
             <Typography variant="body1" sx={{ mt: 1, color: 'text.secondary', fontWeight: 'medium' }}>
               Total items in inventory
             </Typography>
-            <Button 
+            <AppButton 
+              variant="light"
               endIcon={<ArrowForwardIcon />} 
-              sx={{ mt: 2, alignSelf: 'flex-start', color: 'primary.main' }}
+              sx={{ mt: 2, alignSelf: 'flex-start' }}
               onClick={() => navigate('/inventory')}
             >
               View inventory
-            </Button>
+            </AppButton>
           </Paper>
         </Grid>
 
@@ -288,13 +277,14 @@ const Dashboard: React.FC = () => {
             <Typography variant="body1" sx={{ mt: 1, color: 'text.secondary', fontWeight: 'medium' }}>
               Items below threshold
             </Typography>
-            <Button 
+            <AppButton 
+              variant="warning"
               endIcon={<ArrowForwardIcon />} 
-              sx={{ mt: 2, alignSelf: 'flex-start', color: '#ff9800' }}
+              sx={{ mt: 2, alignSelf: 'flex-start' }}
               onClick={() => navigate('/inventory?filter=low-stock')}
             >
               View low stock
-            </Button>
+            </AppButton>
           </Paper>
         </Grid>
 

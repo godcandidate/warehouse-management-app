@@ -2,11 +2,7 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import {
   Box,
-  Grid,
   Typography,
-  Card,
-  CardContent,
-  CardHeader,
   Button,
   Divider,
   Tabs,
@@ -104,7 +100,7 @@ const ProcurementDashboard: React.FC = () => {
             variant="contained"
             color="primary"
             startIcon={<AddIcon />}
-            onClick={() => navigate('/procurement/orders/create')}
+            onClick={() => navigate('/procurement/purchase-order/add')}
             sx={{ mr: 2 }}
           >
             New Purchase Order
@@ -112,7 +108,7 @@ const ProcurementDashboard: React.FC = () => {
           <Button
             variant="outlined"
             startIcon={<AddIcon />}
-            onClick={() => navigate('/procurement/suppliers/add')}
+            onClick={() => navigate('/procurement/supplier/add')}
           >
             Add Supplier
           </Button>
@@ -120,59 +116,47 @@ const ProcurementDashboard: React.FC = () => {
       </Box>
 
       {/* Quick Stats */}
-      <Grid container spacing={3} sx={{ mb: 4 }}>
-        <Grid item xs={12} md={4}>
-          <Card>
-            <CardContent sx={{ display: 'flex', alignItems: 'center' }}>
-              <Avatar sx={{ bgcolor: 'primary.main', mr: 2 }}>
-                <ShoppingCartIcon />
-              </Avatar>
-              <Box>
-                <Typography variant="h5" component="div">
-                  {isLoadingOrders ? <Skeleton width={60} /> : '24'}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Active Purchase Orders
-                </Typography>
-              </Box>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <Card>
-            <CardContent sx={{ display: 'flex', alignItems: 'center' }}>
-              <Avatar sx={{ bgcolor: 'success.main', mr: 2 }}>
-                <BusinessIcon />
-              </Avatar>
-              <Box>
-                <Typography variant="h5" component="div">
-                  {isLoadingOrders ? <Skeleton width={60} /> : '15'}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Active Suppliers
-                </Typography>
-              </Box>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <Card>
-            <CardContent sx={{ display: 'flex', alignItems: 'center' }}>
-              <Avatar sx={{ bgcolor: 'warning.main', mr: 2 }}>
-                <LocalShippingIcon />
-              </Avatar>
-              <Box>
-                <Typography variant="h5" component="div">
-                  {isLoadingOrders ? <Skeleton width={60} /> : '8'}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Pending Deliveries
-                </Typography>
-              </Box>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 4 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Avatar sx={{ bgcolor: 'primary.main', mr: 2 }}>
+            <ShoppingCartIcon />
+          </Avatar>
+          <Box>
+            <Typography variant="h5" component="div">
+              {isLoadingOrders ? <Skeleton width={60} /> : '24'}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Active Purchase Orders
+            </Typography>
+          </Box>
+        </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Avatar sx={{ bgcolor: 'success.main', mr: 2 }}>
+            <BusinessIcon />
+          </Avatar>
+          <Box>
+            <Typography variant="h5" component="div">
+              {isLoadingOrders ? <Skeleton width={60} /> : '15'}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Active Suppliers
+            </Typography>
+          </Box>
+        </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Avatar sx={{ bgcolor: 'info.main', mr: 2 }}>
+            <LocalShippingIcon />
+          </Avatar>
+          <Box>
+            <Typography variant="h5" component="div">
+              {isLoadingOrders ? <Skeleton width={60} /> : '8'}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Pending Deliveries
+            </Typography>
+          </Box>
+        </Box>
+      </Box>
 
       {/* Tabs */}
       <Paper sx={{ mb: 4 }}>
@@ -251,7 +235,7 @@ const ProcurementDashboard: React.FC = () => {
                     />
                     <Chip 
                       label={getStatusLabel(order.status)} 
-                      color={getStatusColor(order.status) as any} 
+                      color={getStatusColor(order.status)} 
                       size="small" 
                     />
                   </ListItem>
@@ -283,7 +267,7 @@ const ProcurementDashboard: React.FC = () => {
                 <ListItem 
                   alignItems="flex-start" 
                   sx={{ cursor: 'pointer' }}
-                  onClick={() => navigate(`/procurement/suppliers/${index + 1}`)}
+                  onClick={() => navigate(`/procurement/supplier/edit/${index + 1}`)}
                 >
                   <ListItemAvatar>
                     <Avatar>
