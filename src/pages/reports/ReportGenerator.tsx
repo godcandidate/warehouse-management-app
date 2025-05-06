@@ -23,8 +23,8 @@ import {
   Alert,
   Stack,
   IconButton,
-  SelectChangeEvent,
 } from '@mui/material';
+import type { SelectChangeEvent } from '@mui/material/Select';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -42,7 +42,7 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
+  Tooltip as RechartsTooltip,
   Legend,
   ResponsiveContainer,
   PieChart,
@@ -420,7 +420,7 @@ const ReportGenerator: React.FC = () => {
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                           ))}
                         </Pie>
-                        <Tooltip />
+                        <RechartsTooltip />
                         <Legend />
                       </PieChart>
                     </ResponsiveContainer>
@@ -440,7 +440,7 @@ const ReportGenerator: React.FC = () => {
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="name" />
                         <YAxis />
-                        <Tooltip />
+                        <RechartsTooltip />
                         <Legend />
                         <Bar dataKey="value" fill="#8884d8" name="Count" />
                       </BarChart>
@@ -474,7 +474,7 @@ const ReportGenerator: React.FC = () => {
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                           ))}
                         </Pie>
-                        <Tooltip />
+                        <RechartsTooltip />
                         <Legend />
                       </PieChart>
                     </ResponsiveContainer>
@@ -494,7 +494,7 @@ const ReportGenerator: React.FC = () => {
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="month" />
                         <YAxis />
-                        <Tooltip />
+                        <RechartsTooltip />
                         <Legend />
                         <Line type="monotone" dataKey="count" stroke="#8884d8" name="Orders" />
                         <Line type="monotone" dataKey="value" stroke="#82ca9d" name="Value ($)" />
@@ -529,7 +529,7 @@ const ReportGenerator: React.FC = () => {
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                           ))}
                         </Pie>
-                        <Tooltip />
+                        <RechartsTooltip />
                         <Legend />
                       </PieChart>
                     </ResponsiveContainer>
@@ -549,7 +549,7 @@ const ReportGenerator: React.FC = () => {
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="name" />
                         <YAxis />
-                        <Tooltip />
+                        <RechartsTooltip />
                         <Legend />
                         <Bar dataKey="value" fill="#8884d8" name="Count" />
                       </BarChart>

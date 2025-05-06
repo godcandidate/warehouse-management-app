@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import {
-  Box,
   Button,
   TextField,
   Typography,
   Link,
   CircularProgress,
-  Alert,
   InputAdornment,
   IconButton,
+  useTheme,
+  alpha,
 } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { 
+  Visibility, 
+  VisibilityOff, 
+  Login as LoginIcon,
+  Email as EmailIcon,
+  Password as PasswordIcon
+} from '@mui/icons-material';
 import { useForm, Controller } from 'react-hook-form';
 import { useAuth } from '../../context/AuthContext';
 
@@ -21,9 +27,10 @@ interface LoginFormInputs {
 }
 
 const Login: React.FC = () => {
-  const { login, isLoading, error } = useAuth();
+  const { login, isLoading } = useAuth();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const theme = useTheme();
 
   const {
     control,
@@ -40,7 +47,7 @@ const Login: React.FC = () => {
     try {
       await login(data.email, data.password);
       navigate('/dashboard');
-    } catch (error) {
+    } catch {
       // Error is handled by the auth context
     }
   };
@@ -50,109 +57,213 @@ const Login: React.FC = () => {
   };
 
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit(onSubmit)}
-      sx={{
-        width: '100%',
+    <div
+      style={{
+        minHeight: '100vh',
         display: 'flex',
-        flexDirection: 'column',
-        gap: 2,
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: `linear-gradient(45deg, ${alpha(theme.palette.primary.light, 0.05)} 0%, ${alpha(theme.palette.secondary.light, 0.05)} 100%)`,
+        padding: '20px',
       }}
     >
-      <Typography variant="h5" component="h2" gutterBottom align="center">
-        Sign In
-      </Typography>
-
-      {error && <Alert severity="error">{error}</Alert>}
-
-      <Controller
-        name="email"
-        control={control}
-        rules={{
-          required: 'Email is required',
-          pattern: {
-            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-            message: 'Invalid email address',
-          },
+      <div
+        style={{
+          width: '100%',
+          maxWidth: '400px',
+          borderRadius: '16px',
+          padding: '32px',
+          background: 'white',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
         }}
-        render={({ field }) => (
-          <TextField
-            {...field}
-            label="Email"
-            variant="outlined"
-            fullWidth
-            autoComplete="email"
-            error={!!errors.email}
-            helperText={errors.email?.message}
-            disabled={isLoading}
-          />
-        )}
-      />
-
-      <Controller
-        name="password"
-        control={control}
-        rules={{
-          required: 'Password is required',
-          minLength: {
-            value: 6,
-            message: 'Password must be at least 6 characters',
-          },
-        }}
-        render={({ field }) => (
-          <TextField
-            {...field}
-            label="Password"
-            type={showPassword ? 'text' : 'password'}
-            variant="outlined"
-            fullWidth
-            autoComplete="current-password"
-            error={!!errors.password}
-            helperText={errors.password?.message}
-            disabled={isLoading}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-        )}
-      />
-
-      <Button
-        type="submit"
-        variant="contained"
-        fullWidth
-        size="large"
-        disabled={isLoading}
-        sx={{ mt: 2 }}
       >
-        {isLoading ? <CircularProgress size={24} /> : 'Sign In'}
-      </Button>
+        <form 
+          onSubmit={handleSubmit(onSubmit)}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '24px',
+            alignItems: 'center',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '60px',
+              height: '60px',
+              borderRadius: '16px',
+              background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
+              boxShadow: `0 8px 20px ${alpha(theme.palette.primary.main, 0.2)}`,
+            }}
+          >
+            <LoginIcon sx={{ color: 'white', fontSize: 30 }} />
+          </div>
+          
+          <Typography variant="h4" component="h1" fontWeight="bold" align="center">
+            Welcome Back
+          </Typography>
+          
+          <Typography variant="body1" color="text.secondary" align="center">
+            Sign in to continue to your account
+          </Typography>
 
-      <Box sx={{ mt: 2, textAlign: 'center' }}>
-        <Typography variant="body2">
-          Don't have an account?{' '}
-          <Link component={RouterLink} to="/register" variant="body2">
-            Sign Up
-          </Link>
-        </Typography>
-        <Typography variant="body2" sx={{ mt: 1 }}>
-          <Link component={RouterLink} to="/forgot-password" variant="body2">
-            Forgot password?
-          </Link>
-        </Typography>
-      </Box>
-    </Box>
+          <Controller
+            name="email"
+            control={control}
+            rules={{
+              required: 'Email is required',
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: 'Invalid email address',
+              },
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Email"
+                variant="outlined"
+                fullWidth
+                autoComplete="email"
+                error={!!errors.email}
+                helperText={errors.email?.message}
+                disabled={isLoading}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <EmailIcon color="action" />
+                    </InputAdornment>
+                  ),
+                }}
+                sx={{ 
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: 2,
+                  }
+                }}
+              />
+            )}
+          />
+
+          <Controller
+            name="password"
+            control={control}
+            rules={{
+              required: 'Password is required',
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Password"
+                type={showPassword ? 'text' : 'password'}
+                variant="outlined"
+                fullWidth
+                autoComplete="current-password"
+                error={!!errors.password}
+                helperText={errors.password?.message}
+                disabled={isLoading}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <PasswordIcon color="action" />
+                    </InputAdornment>
+                  ),
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                sx={{ 
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: 2,
+                  }
+                }}
+              />
+            )}
+          />
+
+          <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
+            <Link
+              component={RouterLink}
+              to="/forgot-password"
+              variant="body2"
+              underline="hover"
+              sx={{ color: theme.palette.primary.main }}
+            >
+              Forgot password?
+            </Link>
+          </div>
+
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            disabled={isLoading}
+            startIcon={isLoading ? <CircularProgress size={20} color="inherit" /> : <LoginIcon />}
+            sx={{ 
+              py: 1.5,
+              borderRadius: 2,
+              background: `linear-gradient(90deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
+              boxShadow: `0 8px 20px ${alpha(theme.palette.primary.main, 0.3)}`,
+              textTransform: 'none',
+              fontSize: '1rem',
+              fontWeight: 600,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: `0 10px 25px ${alpha(theme.palette.primary.main, 0.4)}`,
+                transform: 'translateY(-2px)',
+              }
+            }}
+          >
+            {isLoading ? 'Signing in...' : 'Sign In'}
+          </Button>
+
+          <div style={{ width: '100%', textAlign: 'center', margin: '16px 0', position: 'relative' }}>
+            <div style={{ 
+              position: 'absolute', 
+              top: '50%', 
+              left: 0, 
+              right: 0, 
+              height: '1px', 
+              background: '#e0e0e0' 
+            }} />
+            <Typography 
+              variant="body2" 
+              color="text.secondary" 
+              sx={{ 
+                display: 'inline-block', 
+                position: 'relative', 
+                background: 'white', 
+                padding: '0 16px' 
+              }}
+            >
+              OR
+            </Typography>
+          </div>
+
+          <Typography variant="body2">
+            Don't have an account?{' '}
+            <Link 
+              component={RouterLink} 
+              to="/register" 
+              variant="body2" 
+              sx={{ fontWeight: 600 }}
+              underline="hover"
+              color="primary.main"
+            >
+              Create an account
+            </Link>
+          </Typography>
+        </form>
+      </div>
+    </div>
   );
 };
 

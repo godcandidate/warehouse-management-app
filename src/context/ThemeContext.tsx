@@ -28,18 +28,33 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     palette: {
       mode,
       primary: {
-        main: '#1976d2',
-        light: '#42a5f5',
-        dark: '#1565c0',
+        main: '#2563eb', // Modern blue
+        light: '#60a5fa',
+        dark: '#1d4ed8',
       },
       secondary: {
-        main: '#9c27b0',
-        light: '#ba68c8',
-        dark: '#7b1fa2',
+        main: '#8b5cf6', // Modern purple
+        light: '#a78bfa',
+        dark: '#7c3aed',
+      },
+      success: {
+        main: '#10b981', // Modern green
+        light: '#34d399',
+        dark: '#059669',
+      },
+      warning: {
+        main: '#f59e0b', // Modern amber
+        light: '#fbbf24',
+        dark: '#d97706',
+      },
+      error: {
+        main: '#ef4444', // Modern red
+        light: '#f87171',
+        dark: '#dc2626',
       },
       background: {
-        default: mode === 'light' ? '#f5f5f5' : '#121212',
-        paper: mode === 'light' ? '#ffffff' : '#1e1e1e',
+        default: mode === 'light' ? '#f9fafb' : '#111827',
+        paper: mode === 'light' ? '#ffffff' : '#1f2937',
       },
     },
     typography: {
@@ -73,26 +88,71 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       MuiButton: {
         styleOverrides: {
           root: {
-            borderRadius: 8,
+            borderRadius: 10,
             textTransform: 'none',
-            fontWeight: 500,
+            fontWeight: 600,
+            padding: '10px 20px',
+            transition: 'all 0.2s ease-in-out',
+            '&:hover': {
+              transform: 'translateY(-2px)',
+              boxShadow: '0 6px 20px rgba(0, 0, 0, 0.1)',
+            },
+          },
+          containedPrimary: {
+            background: 'linear-gradient(90deg, #2563eb 0%, #3b82f6 100%)',
+          },
+          containedSecondary: {
+            background: 'linear-gradient(90deg, #8b5cf6 0%, #a78bfa 100%)',
           },
         },
       },
       MuiCard: {
         styleOverrides: {
           root: {
-            borderRadius: 12,
+            borderRadius: 16,
+            overflow: 'hidden',
+            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+            '&:hover': {
+              transform: 'translateY(-8px)',
+              boxShadow: mode === 'light'
+                ? '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
+                : '0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2)',
+            },
             boxShadow: mode === 'light' 
-              ? '0px 2px 4px rgba(0, 0, 0, 0.05), 0px 4px 6px rgba(0, 0, 0, 0.05)' 
-              : '0px 2px 4px rgba(0, 0, 0, 0.2), 0px 4px 6px rgba(0, 0, 0, 0.2)',
+              ? '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)' 
+              : '0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2)',
           },
         },
       },
       MuiPaper: {
         styleOverrides: {
           root: {
-            borderRadius: 12,
+            borderRadius: 16,
+          },
+        },
+      },
+      MuiAppBar: {
+        styleOverrides: {
+          root: {
+            boxShadow: mode === 'light'
+              ? '0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1)'
+              : '0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.3)',
+          },
+        },
+      },
+      MuiTypography: {
+        styleOverrides: {
+          h1: {
+            fontWeight: 700,
+          },
+          h2: {
+            fontWeight: 700,
+          },
+          h3: {
+            fontWeight: 600,
+          },
+          h4: {
+            fontWeight: 600,
           },
         },
       },

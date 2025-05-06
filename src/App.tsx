@@ -15,6 +15,9 @@ import AuthLayout from './layouts/AuthLayout';
 // Auth Pages
 import Login from './pages/auth/Login';
 
+// Landing Page
+const LandingPage = lazy(() => import('./pages/landing/LandingPage'));
+
 // Lazy-loaded pages for better performance
 const Dashboard = lazy(() => import('./pages/dashboard/Dashboard'));
 const InventoryList = lazy(() => import('./pages/inventory/InventoryList'));
@@ -68,10 +71,12 @@ function App() {
             <BrowserRouter>
               <Suspense fallback={<LoadingFallback />}>
                 <Routes>
+                  {/* Landing Page Route */}
+                  <Route path="/" element={<LandingPage />} />
+                  
                   {/* Auth Routes */}
                   <Route element={<AuthLayout />}>
                     <Route path="/login" element={<Login />} />
-                    <Route path="/" element={<Navigate to="/login" replace />} />
                   </Route>
 
                   {/* Protected Routes */}
